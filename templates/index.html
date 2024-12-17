@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate summaries and quizzes from PDFs quickly and efficiently with QuizCraft.">
+    <meta name="keywords" content="QuizCraft, PDF summary, quiz generator, online learning">
+    <meta name="author" content="QuizCraft Team">
+    <title>PDF Summary and Quiz Generator</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <!-- Header with Navigation -->
+        <header>
+            <nav>
+                <div class="logo">
+                    <h1>QuizCraft</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="/" id="home-link" aria-current="page">Home</a></li>
+                    <li><a href="#" id="about-link" class="hidden">About</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main Container -->
+        <main class="container" id="content">
+            <!-- Home Section -->
+            <section id="home-section" aria-hidden="false">
+                <h1 id="home-heading">Upload a PDF to Generate a Summary and Quiz</h1>
+                <form id="pdf-form" aria-labelledby="home-heading">
+                    <label for="pdf-file">Choose PDF:</label>
+                    <input type="file" id="pdf-file" name="file" accept="application/pdf" required>
+                    <label for="num-questions">Number of Questions:</label>
+                    <input type="number" id="num-questions" name="num_questions" min="1" max="50" value="10" required>
+                    <button type="submit">Generate Quiz</button>
+                </form>
+
+                <!-- Loader and Error Message -->
+                <div id="loader" class="hidden" aria-hidden="true">Processing your request...</div>
+                <div id="error" class="hidden" aria-hidden="true"></div>
+
+                <!-- Summary and Quiz Output -->
+                <div id="output" class="hidden" aria-hidden="true">
+                    <h2>Summary</h2>
+                    <div id="summary"></div>
+                    <button id="download-summary">Download Summary as PDF</button>
+
+                    <h2>Quiz</h2>
+                    <div id="quiz"></div>
+                    <div id="quiz-feedback" class="hidden" aria-hidden="true">
+                        <h3>Quiz Feedback</h3>
+                        <div id="feedback"></div>
+                    </div>
+
+                    <!-- Start Quiz Section -->
+                    <div id="start-quiz-section" class="hidden" aria-hidden="true">
+                        <h3>Set Timer for Quiz:</h3>
+                        <input type="number" id="quiz-timer" min="1" value="5" aria-describedby="timer-description">
+                        <span id="timer-description">Enter time in minutes.</span>
+                        <button id="start-quiz">Start Quiz</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about-section" class="hidden" aria-hidden="true">
+                <h1>About QuizCraft</h1>
+                <p>
+                    QuizCraft is an innovative platform that helps you generate summaries and quizzes from PDFs quickly
+                    and efficiently. Our mission is to make learning interactive and accessible to everyone.
+                </p>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2024 QuizCraft. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
+    <script>
+        // References to navigation links and sections
+        const homeLink = document.getElementById('home-link');
+        const aboutLink = document.getElementById('about-link');
+        const homeSection = document.getElementById('home-section');
+        const aboutSection = document.getElementById('about-section');
+
+        // Show Home Section by default
+        document.addEventListener('DOMContentLoaded', () => {
+            homeSection.classList.remove('hidden');
+            aboutLink.classList.remove('hidden'); // Show the "About" link
+        });
+
+        // Home Link Event
+        homeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            homeSection.classList.remove('hidden');
+            aboutSection.classList.add('hidden');
+        });
+
+        // About Link Event
+        aboutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            homeSection.classList.add('hidden');
+            aboutSection.classList.remove('hidden');
+        });
+    </script>
+</body>
+
+</html>
